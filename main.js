@@ -24,7 +24,7 @@ new Vue({
     this.todos = todoStorage.fetch()
   },
   methods: {    
-    doAdd: function(event, value) {
+    doAdd: function() {
       var comment = this.$refs.comment
       if (!comment.value.length) {
         return
@@ -32,17 +32,25 @@ new Vue({
       this.todos.push({
         id: todoStorage.uid++,
         comment: comment.value,
-        state: 0
+        edit: false
       })
       comment.value = ''
     },
-
+    doUpdate: function(item) {
+      var comment = this.$refs[item.id][0]
+      if (!comment.value.length) {
+        return
+      }
+      item.comment = comment.value
+      item.edit = false
+      comment.value = ''
+    },
     doRemove: function(item) {
       var index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
     },
     doEdit: function(item) {
-
+      item.edit = true
     }
   },
   watch: {
