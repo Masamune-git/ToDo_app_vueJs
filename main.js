@@ -48,9 +48,6 @@ new Vue({
     doRemove: function (item) {
       const index = this.todos.indexOf(item)
       this.todos.splice(index, 1)
-    },
-    doEdit: function (item) {
-      item.edit = true
     }
   },
   watch: {
