@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <title>ToDo</title>
+</head>
+<body>
+  <div id="app">
+    <h2>ToDo一覧</h2>
+    <table>      
+      <thead v-pre>
+        <tr>
+          <th class=></th>
+          <th class="comment">コメント</th>
+          <th class="button"></th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr v-for="item in todos" v-bind:key="item.id">
+            <th>・</th>
+            <td v-if="item.edit">
+              <form class="edit-form" v-on:submit.prevent="doUpdate(item)">
+                <input type="text" :value="item.comment" :ref="item.id">
+                <button type="submit">更新</button>
+                <button type="button" v-on:click="item.edit = false">キャンセル</button>
+                
+              </form>
+            </td>
+            <td v-else>
+              {{ item.comment }}
+            </td>
+            <td  class="button">
+              <button v-on:click="doRemove(item)">
+                削除
+              </button>
+            </td>
+            <td  class="button">
+              <button type="button" v-on:click="item.edit = true">
+                編集
+              </button>
+            </td>
+            <td>
+
+            </td>        
+          </tr>  
+        </tbody>
+    </table>
+    <h2>ToDoの追加</h2>
+    <form class="add-form" v-on:submit.prevent="doAdd">
+      コメント <input type="text" ref="comment">
+      <button type="submit">追加</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
